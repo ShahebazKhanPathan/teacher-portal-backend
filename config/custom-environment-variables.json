@@ -1,0 +1,10 @@
+{
+    "adminConfig": {
+        "adminId": "ADMIN_ID",
+        "adminPassword": "ADMIN_PASSWORD"
+    },
+    "dbConfig": {
+        "host": "MONGO_URI"
+    },
+    "privateKey": "PRIVATE_KEY"
+}
