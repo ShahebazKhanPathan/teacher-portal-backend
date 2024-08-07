@@ -8,7 +8,7 @@ const checkTokenExpiry = async (req, res, next) => {
     const token = req.header("auth-token");
     const isBlacklisted = await Blacklist.findOne({ token: token });
     if (isBlacklisted) return res.status(409).send('Token has expired.');
-    res.status(201).send(token);
+    res.status(200).send(token);
 }
 
 // Controller for black listing token
