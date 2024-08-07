@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const error = require("./middleware/error");
 const user = require("./src/routes/user");
+const student = require("./src/routes/student");
 
 // Create express application
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 
 // Enable routes
 app.use("/api/user", user);
+app.use("/api/student", student);
 
 // Enable error middleware
 app.use(error);
