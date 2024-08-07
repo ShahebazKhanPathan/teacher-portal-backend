@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const Student = require("../models/student");
 
+// Controller to add new student
 const addStudent = async (req, res, next) => {
     const { name, subject, marks } = req.body;
 
@@ -24,6 +25,28 @@ const addStudent = async (req, res, next) => {
     if (result) return res.status(200).send("Student added successfully!");
 }
 
+// Controller to fetch all students
+const getStudents = async (req, res, next) => {
+    const students = await Student.find();
+    if (!students) return res.status(404).send("No records found.");
+    res.send(students);
+}
+
+const updateStudent = async (req, res, next) => {
+    const { name, subject, marks, id } = req.body;
+    const update = await Student.findByIdAndUpdate(id, { name: name, subject: subject, marks: marks });
+    if (update) return res.status(200).send("Student updated successfully!");
+    res.status(409).send("Update failed.");
+}
+
+// Controller to delete a student
+const deleteStudent = async (req, res, next) => {
+    const id = req.params.id;
+    const result = await Student.deleteOne({ _id: id });
+    if (!result) return res.status(404).send("Invalid ID");
+    res.status(200).send("Student deleted successfully!");
+}
+
 // Function to validate student
 function validateStudent(name, subject, marks) {
 
@@ -37,4 +60,4 @@ function validateStudent(name, subject, marks) {
     return schema.validate({ name, subject, marks });
 }
 
-module.exports = { addStudent };
+module.exports = { addStudent, getStudents, deleteStudent, updateStudent };
